@@ -51,6 +51,7 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => \yii\web\ErrorAction::class,
+                'layout' => 'blank',
             ],
         ];
     }
@@ -99,6 +100,6 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect('/');
     }
 }

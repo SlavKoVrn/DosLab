@@ -1,5 +1,7 @@
 <?php
 return [
+    'name' => 'DosLab',
+    'language' => 'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
