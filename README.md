@@ -1,5 +1,5 @@
 <h2 align="center">Демо версия</h2>
-<a href="http://doslab.kadastrcard.ru/admin" target="_blank">http://doslab.kadastrcard.ru/admin</a>
+<a href="http://doslab.kadastrcard.ru/admin/site/login" target="_blank">http://doslab.kadastrcard.ru/admin/site/login</a>
 
 ```
 login:admin
