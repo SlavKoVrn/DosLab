@@ -1,3 +1,11 @@
+<h2 align="center">Демо версия</h2>
+<a href="http://doslab.kadastrcard.ru/admin" target="_blank">http://doslab.kadastrcard.ru/admin</a>
+```
+login:admin
+password:123456
+```
+
+<h2 align="center">Тестовое задание</h2>
 <p class=MsoNoSpacing><b style='mso-bidi-font-weight:normal'>Разработать
 приложение учета книг на основе шаблона yii2. База данных <span class=SpellE>postgresql</span>.</b><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:
