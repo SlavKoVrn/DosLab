@@ -1,3 +1,51 @@
+<p class=MsoNoSpacing><b style='mso-bidi-font-weight:normal'>Разработать
+приложение учета книг на основе шаблона yii2. База данных <span class=SpellE>postgresql</span>.</b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:
+EN-US'><o:p></o:p></span></b></p>
+
+<p class=MsoNoSpacing><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNoSpacing>Функциональные требования:<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Функционал входа/выхода в систему<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Добавление книг (Наименование, артикул, Дата
+поступления, Автор<span class=GramE> )</span><o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Добавление сотрудников (ФИО, должность)<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Добавление клиентов (ФИО, серия и номер паспорта)<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Функционал выдачи книг клиенту. Фиксируется дата <span
+class=SpellE>выдачы</span>, книга, сотрудник, срок выдачи<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Функционал <span class=SpellE>возрата</span> книг.
+Данные для фиксации: дата возврата, <span class=SpellE>книга<span class=GramE>,с</span>отрудник,состоянии</span>
+книги (из справочника)<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Страница отображения списка книг с фильтрами: название
+книги, в наличии или нет,<o:p></o:p></p>
+
+<p class=MsoNoSpacing>- Страница клиентов с фильтрами: клиенты без книг/с
+книгами, ФИО. <o:p></o:p></p>
+
+<p class=MsoNoSpacing>Так же должна быть предусмотрена подробная информация о
+взятых книгах (<span class=SpellE>Наименование<span class=GramE>,д</span>ата</span>
+возврата) <o:p></o:p></p>
+
+<p class=MsoNoSpacing><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNoSpacing><b style='mso-bidi-font-weight:normal'>Дополнительно:<o:p></o:p></b></p>
+
+<p class=MsoNoSpacing>-Фильтры, расположенные на страницах должны, работать
+асинхронно. <o:p></o:p></p>
+
+<p class=MsoNoSpacing>-Рекомендуется использование <span class=SpellE>js</span>
+<span class=SpellE>фреймворков</span>. <o:p></o:p></p>
+
+<p class=MsoNoSpacing>-Структура БД произвольная.</p>
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
