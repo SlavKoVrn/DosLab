@@ -35,6 +35,7 @@
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
+                    ['label' => 'Книги', 'url' => '/admin/book', 'icon' => 'th'],
                     [
                         'label' => 'Starter Pages',
                         'icon' => 'tachometer-alt',
