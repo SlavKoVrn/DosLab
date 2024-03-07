@@ -59,7 +59,7 @@ return [
             ],
         ],
         'denyCallback' => function () {
-            return Yii::$app->response->redirect(['/']);
+            return Yii::$app->response->redirect(['site/login']);
         },
     ],
 ];
