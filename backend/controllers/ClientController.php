@@ -101,6 +101,7 @@ class ClientController extends Controller
                         'verification_token' => '',
                         'created_at' => time(),
                         'updated_at' => time(),
+                        'status' => User::STATUS_ACTIVE,
                     ],false);
                     if (!$user->validate()) {
                         $errors = $user->errors;

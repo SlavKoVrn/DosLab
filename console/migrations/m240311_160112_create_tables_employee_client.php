@@ -84,6 +84,7 @@ class m240311_160112_create_tables_employee_client extends Migration
                 'verification_token' => '',
                 'created_at' => time(),
                 'updated_at' => time(),
+                'status' => User::STATUS_ACTIVE,
             ],false);
             $user->save();
 
@@ -114,6 +115,7 @@ class m240311_160112_create_tables_employee_client extends Migration
                 'verification_token' => '',
                 'created_at' => time(),
                 'updated_at' => time(),
+                'status' => User::STATUS_ACTIVE,
             ],false);
             $user->save();
 
