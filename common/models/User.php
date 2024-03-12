@@ -29,6 +29,10 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    const ADMINISTRATOR_USER_ID = 1;
+    const USER_ROLE_ADMINISTRATOR = 'Администратор';
+    const USER_ROLE_EMPLOYEE = 'Сотрудник';
+    const USER_ROLE_CLIENT = 'Клиент';
 
     /**
      * {@inheritdoc}
@@ -56,6 +60,18 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['username', 'email'], 'unique'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'email' => 'Почта',
         ];
     }
 

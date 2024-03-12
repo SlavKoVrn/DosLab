@@ -1,19 +1,19 @@
 <?php
 
-use common\models\Book;
+use common\models\Position;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
-/** @var common\models\BookSearch $searchModel */
+/** @var common\models\PositionSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Книги';
+$this->title = 'Должности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="book-index">
+<div class="position-index">
 
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
@@ -26,24 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            'id',
             'name',
-            'article_number',
-            [
-                'attribute' => 'date_receipt',
-                'filterType'          => GridView::FILTER_DATE_RANGE,
-                'filterWidgetOptions' => [
-                    'convertFormat'  => false,
-                    'presetDropdown' => true,
-                    'pluginOptions'  => [
-                        'format'    => 'Y-m-d',
-                        'autoclose' => true,
-                    ]
-                ]
-            ],
-            'author',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Book $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Position $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
