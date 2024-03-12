@@ -150,9 +150,9 @@ class EmployeeController extends Controller
                         }
                     }
                     $user->save();
+                    $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
-                $transaction->commit();
             } catch (\Exception $e) {
                 \Yii::$app->session->addFlash('danger', $e->getMessage());
                 $transaction->rollBack();

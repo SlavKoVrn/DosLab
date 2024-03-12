@@ -133,8 +133,28 @@ class ClientController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                if ($model->load($this->request->post()) && $model->save()){
+                    $user = User::findOne($model->user_id);
+                    $user->email = $model->email;
+                    if (!$user->validate()) {
+                        $errors = $user->errors;
+                        foreach ($errors as $attribute => $errorMessages) {
+                            foreach ($errorMessages as $errorMessage) {
+                                throw new \Exception($errorMessage);
+                            }
+                        }
+                    }
+                    $user->save();
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } catch (\Exception $e) {
+                \Yii::$app->session->addFlash('danger', $e->getMessage());
+                $transaction->rollBack();
+            }
         }
 
         return $this->render('update', [
