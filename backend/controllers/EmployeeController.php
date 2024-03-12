@@ -140,7 +140,10 @@ class EmployeeController extends Controller
             try {
                 if ($model->load($this->request->post()) && $model->save()){
                     $user = User::findOne($model->user_id);
-                    $user->email = $model->email;
+                    $user->setAttributes([
+                        'email' => $model->email,
+                        'username' => $model->username,
+                    ]);
                     if (!$user->validate()) {
                         $errors = $user->errors;
                         foreach ($errors as $attribute => $errorMessages) {

@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'passport',
             [
                 'attribute' => 'user_id',
+                'filter' => false,
                 'content' => function($model){
                     return $model->user->username ?? '';
                 }
