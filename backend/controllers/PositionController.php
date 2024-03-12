@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use common\models\Position;
 use common\models\PositionSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PositionController implements the CRUD actions for Position model.
@@ -27,6 +29,22 @@ class PositionController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => [User::USER_ROLE_ADMINISTRATOR],
+                        ],
+                    ],
+                ],
+
             ]
         );
     }

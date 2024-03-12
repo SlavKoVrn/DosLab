@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use common\models\User;
 use common\models\Book;
 use common\models\BookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -25,6 +27,21 @@ class BookController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => [User::USER_ROLE_EMPLOYEE],
+                        ],
                     ],
                 ],
             ]
