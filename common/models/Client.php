@@ -16,6 +16,7 @@ use yii\behaviors\SluggableBehavior;
  */
 class Client extends \yii\db\ActiveRecord
 {
+    const SCENARIO_FORM_VALIDATE = 'formValidate';
     public $email;
 
     /**
@@ -34,7 +35,8 @@ class Client extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'integer'],
             [['fio', 'passport', 'username', 'email'], 'string', 'max' => 255],
-            [['fio', 'passport', 'email'], 'required'],
+            [['fio', 'passport'], 'required'],
+            [['email'], 'required', 'on' => self::SCENARIO_FORM_VALIDATE ],
             [['email'], 'email'],
         ];
     }

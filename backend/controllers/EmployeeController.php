@@ -87,50 +87,49 @@ class EmployeeController extends Controller
         $model = new Employee();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    if ($model->load($this->request->post()) && $model->save()) {
+            $model->scenario = Employee::SCENARIO_FORM_VALIDATE;
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                if ($model->load($this->request->post()) && $model->save()) {
 
-                        $user = new User;
-                        $user->setAttributes([
-                            'username' => $model->username,
-                            'auth_key' => md5(time()),
-                            'password_hash' => \Yii::$app->security->generatePasswordHash('123456'),
-                            'password_reset_token' => \Yii::$app->security->generateRandomString(),
-                            'email' => $model->email,
-                            'verification_token' => '',
-                            'created_at' => time(),
-                            'updated_at' => time(),
-                            'status' => User::STATUS_ACTIVE,
-                        ],false);
-                        if (!$user->validate()) {
-                            $errors = $user->errors;
-                            foreach ($errors as $attribute => $errorMessages) {
-                                foreach ($errorMessages as $errorMessage) {
-                                    throw new \Exception($errorMessage);
-                                }
+                    $user = new User;
+                    $user->setAttributes([
+                        'username' => $model->username,
+                        'auth_key' => md5(time()),
+                        'password_hash' => \Yii::$app->security->generatePasswordHash('123456'),
+                        'password_reset_token' => \Yii::$app->security->generateRandomString(),
+                        'email' => $model->email,
+                        'verification_token' => '',
+                        'created_at' => time(),
+                        'updated_at' => time(),
+                        'status' => User::STATUS_ACTIVE,
+                    ],false);
+                    if (!$user->validate()) {
+                        $errors = $user->errors;
+                        foreach ($errors as $attribute => $errorMessages) {
+                            foreach ($errorMessages as $errorMessage) {
+                                throw new \Exception($errorMessage);
                             }
                         }
-                        $user->save();
-
-                        $model->user_id = $user->id;
-                        $model->save();
-
-                        $auth = \Yii::$app->authManager;
-                        $clientRole = $auth->getRole(User::USER_ROLE_EMPLOYEE);
-                        $auth->assign($clientRole, $user->id);
-
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
                     }
-                    $model->loadDefaultValues();
-                    $transaction->rollBack();
-                } catch (\Exception $e) {
-                    \Yii::$app->session->addFlash('danger', $e->getMessage());
-                    $model->loadDefaultValues();
-                    $transaction->rollBack();
+                    $user->save();
+
+                    $model->user_id = $user->id;
+                    $model->save();
+
+                    $auth = \Yii::$app->authManager;
+                    $clientRole = $auth->getRole(User::USER_ROLE_EMPLOYEE);
+                    $auth->assign($clientRole, $user->id);
+
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
+                $model->loadDefaultValues();
+                $transaction->rollBack();
+            } catch (\Exception $e) {
+                \Yii::$app->session->addFlash('danger', $e->getMessage());
+                $model->loadDefaultValues();
+                $transaction->rollBack();
             }
         } else {
             $model->loadDefaultValues();
@@ -153,6 +152,7 @@ class EmployeeController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost) {
+            $model->scenario = Employee::SCENARIO_FORM_VALIDATE;
             $transaction = \Yii::$app->db->beginTransaction();
             try {
                 if ($model->load($this->request->post()) && $model->save()){

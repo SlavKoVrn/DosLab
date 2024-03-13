@@ -87,6 +87,7 @@ class ClientController extends Controller
         $model = new Client();
 
         if ($this->request->isPost) {
+            $model->scenario = Client::SCENARIO_FORM_VALIDATE;
             $transaction = \Yii::$app->db->beginTransaction();
             try {
                 if ($model->load($this->request->post()) && $model->save()) {
@@ -151,6 +152,7 @@ class ClientController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost) {
+            $model->scenario = Client::SCENARIO_FORM_VALIDATE;
             $transaction = \Yii::$app->db->beginTransaction();
             try {
                 if ($model->load($this->request->post()) && $model->save()){
