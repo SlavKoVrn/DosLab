@@ -81,7 +81,7 @@ class Operation extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        $this->employee_id = Yii::$app->user->id;
+        $this->employee_id = Yii::$app->user->employee->id;
 
         return parent::beforeSave($insert);
     }
