@@ -38,7 +38,12 @@ class PositionController extends Controller
                             'roles' => ['@'],
                         ],
                         [
-                            'actions' => ['create', 'update', 'delete'],
+                            'actions' => ['create', 'update'],
+                            'allow' => true,
+                            'roles' => [User::USER_ROLE_EMPLOYEE],
+                        ],
+                        [
+                            'actions' => ['delete'],
                             'allow' => true,
                             'roles' => [User::USER_ROLE_ADMINISTRATOR],
                         ],

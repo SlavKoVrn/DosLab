@@ -38,9 +38,14 @@ class ClientController extends Controller
                             'roles' => ['@'],
                         ],
                         [
-                            'actions' => ['create', 'update', 'delete'],
+                            'actions' => ['create', 'update'],
                             'allow' => true,
                             'roles' => [User::USER_ROLE_EMPLOYEE],
+                        ],
+                        [
+                            'actions' => ['delete'],
+                            'allow' => true,
+                            'roles' => [User::USER_ROLE_ADMINISTRATOR],
                         ],
                     ],
                 ],
@@ -193,7 +198,19 @@ class ClientController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            $client = $this->findModel($id);
+            $user = User::findOne($client->user_id);
+
+            $user->delete();
+            $client->delete();
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            \Yii::$app->session->addFlash('danger', $e->getMessage());
+            $transaction->rollBack();
+        }
 
         return $this->redirect(['index']);
     }

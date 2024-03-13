@@ -193,7 +193,20 @@ class EmployeeController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            $employee = $this->findModel($id);
+            $user = User::findOne($employee->user_id);
+
+            $user->delete();
+            $employee->delete();
+
+            $transaction->commit();
+        } catch (\Exception $e) {
+            \Yii::$app->session->addFlash('danger', $e->getMessage());
+            $transaction->rollBack();
+        }
+
 
         return $this->redirect(['index']);
     }
