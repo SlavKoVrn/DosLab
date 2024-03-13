@@ -28,18 +28,18 @@ class m240307_144423_create_table_book extends Migration
             'name' => $this->string(),
         ]);
 
-        $book_status = new BookStatus;
-        $book_status->name = 'отличное';
-        $book_status->save();
-        $book_status = new BookStatus;
-        $book_status->name = 'хорошее';
-        $book_status->save();
-        $book_status = new BookStatus;
-        $book_status->name = 'среднее';
-        $book_status->save();
-        $book_status = new BookStatus;
-        $book_status->name = 'плохое';
-        $book_status->save();
+        $bookStatus = new BookStatus;
+        $bookStatus->name = 'отличное';
+        $bookStatus->save();
+        $bookStatus = new BookStatus;
+        $bookStatus->name = 'хорошее';
+        $bookStatus->save();
+        $bookStatus = new BookStatus;
+        $bookStatus->name = 'среднее';
+        $bookStatus->save();
+        $bookStatus = new BookStatus;
+        $bookStatus->name = 'плохое';
+        $bookStatus->save();
 
         $faker = Factory::create('ru_RU');
         for ($i = 1; $i <= 100; $i++) {

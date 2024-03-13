@@ -40,6 +40,7 @@
                     ['label' => 'Должности', 'url' => '/admin/position', 'icon' => 'th'],
                     ['label' => 'Сотрудники', 'url' => '/admin/employee', 'icon' => 'th'],
                     ['label' => 'Клиенты', 'url' => '/admin/client', 'icon' => 'th'],
+                    ['label' => 'Выдача, возврат книг', 'url' => '/admin/operation', 'icon' => 'th'],
                     [
                         'label' => 'Starter Pages',
                         'icon' => 'tachometer-alt',
