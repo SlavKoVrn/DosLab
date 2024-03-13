@@ -36,6 +36,7 @@
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Книги', 'url' => '/admin/book', 'icon' => 'th'],
+                    ['label' => 'Состояния книги', 'url' => '/admin/book-status', 'icon' => 'th'],
                     ['label' => 'Должности', 'url' => '/admin/position', 'icon' => 'th'],
                     ['label' => 'Сотрудники', 'url' => '/admin/employee', 'icon' => 'th'],
                     ['label' => 'Клиенты', 'url' => '/admin/client', 'icon' => 'th'],

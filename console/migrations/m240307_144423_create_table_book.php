@@ -1,5 +1,6 @@
 <?php
 use common\models\Book;
+use common\models\BookStatus;
 use yii\db\Migration;
 use Faker\Factory;
 
@@ -15,11 +16,30 @@ class m240307_144423_create_table_book extends Migration
     {
         $this->createTable('{{%book}}', [
             'id' => $this->primaryKey(),
+	    'book_status_id' => $this->integer(),
             'name' => $this->string(),
             'article_number' => $this->string(),
             'date_receipt' => $this->date(),
             'author' => $this->string(),
         ]);
+
+        $this->createTable('{{%book_status}}', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(),
+        ]);
+
+        $book_status = new BookStatus;
+        $book_status->name = 'отличное';
+        $book_status->save();
+        $book_status = new BookStatus;
+        $book_status->name = 'хорошее';
+        $book_status->save();
+        $book_status = new BookStatus;
+        $book_status->name = 'среднее';
+        $book_status->save();
+        $book_status = new BookStatus;
+        $book_status->name = 'плохое';
+        $book_status->save();
 
         $faker = Factory::create('ru_RU');
         for ($i = 1; $i <= 100; $i++) {
@@ -33,6 +53,7 @@ class m240307_144423_create_table_book extends Migration
                 'article_number' => $faker->isbn13(),
                 'date_receipt' => $randomDate,
                 'author' => $faker->firstName.' '.$faker->lastName,
+                'book_status_id' => rand(1,4),
             ]);
             $book->save();
             echo "$book->id. $book->name - $book->article_number - $book->date_receipt - $book->author\n";
@@ -46,6 +67,7 @@ class m240307_144423_create_table_book extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%book}}');
+        $this->dropTable('{{%book_status}}');
     }
 
 }

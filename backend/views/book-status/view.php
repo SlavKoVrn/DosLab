@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\Book $model */
+/** @var common\models\BookStatus $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Книги', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Состояния книг', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="book-view">
+<div class="book-status-view">
 
     <p>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -27,16 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'name',
-            'article_number',
-            'date_receipt',
-            'author',
-            [
-                'attribute' => 'book_status_id',
-                'value' => function($model){
-                    return $model->status->name ?? '';
-                }
-            ],
         ],
     ]) ?>
 

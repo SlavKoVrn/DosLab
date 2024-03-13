@@ -1,5 +1,6 @@
 <?php
 
+use common\models\BookStatus;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
@@ -23,10 +24,10 @@ use kartik\date\DatePicker;
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?= $form->field($model, 'article_number')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?= $form->field($model, 'date_receipt')->widget(DatePicker::class, [
                 'options' => ['placeholder' => 'Дата поступления'],
                 'pluginOptions' => [
@@ -36,6 +37,9 @@ use kartik\date\DatePicker;
                     'format' => 'dd.mm.yyyy',
                 ]
             ]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'book_status_id')->dropDownList(BookStatus::getStatuses()) ?>
         </div>
     </div>
 
