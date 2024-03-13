@@ -80,7 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getEmployee()
     {
-        return $this->hasOne(Employee::class, ['id' => 'employee_id']);
+        return $this->hasOne(Employee::class, ['user_id' => 'id']);
     }
 
     /**
