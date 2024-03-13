@@ -41,13 +41,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'employee_id',
                 'content' => function($model){
-                    return $model->employee->fio;
+                    return $model->employee->fio ?? '';
                 }
             ],
             [
                 'attribute' => 'client_id',
                 'content' => function($model){
-                    return $model->client->fio;
+                    return $model->client->fio ?? '';
                 }
             ],
             [
