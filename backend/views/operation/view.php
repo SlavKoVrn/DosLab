@@ -1,5 +1,6 @@
 <?php
 use common\models\Operation;
+use common\models\BookStatus;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -53,5 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Артикул</th>
+            <th scope="col">Дата поступления</th>
+            <th scope="col">Автор</th>
+            <th scope="col">Состояние</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($model->operationBooks as $operationBook) : ?>
+        <tr>
+            <td><?= $operationBook->book->name ?></td>
+            <td><?= $operationBook->book->article_number ?></td>
+            <td><?= $operationBook->book->date_receipt ?></td>
+            <td><?= $operationBook->book->author ?></td>
+            <td><?= BookStatus::getStatusById($operationBook->book_status_id) ?></td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
 </div>

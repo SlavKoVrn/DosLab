@@ -2,11 +2,14 @@
 
 namespace backend\controllers;
 
+use common\models\Book;
 use common\models\Operation;
+use common\models\OperationBook;
 use common\models\OperationSearch;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +39,7 @@ class OperationController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'client'],
+                            'actions' => ['index', 'view', 'client', 'book'],
                             'allow' => true,
                             'roles' => ['@'],
                         ],
@@ -95,7 +98,9 @@ class OperationController extends Controller
         $model = new Operation();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            $post = $this->request->post();
+            if ($model->load($post) and $model->save()) {
+                $model->saveBooks($post['Operation']['books']);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -104,6 +109,8 @@ class OperationController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'operationBooks' => json_encode([]),
+            'data' => [],
         ]);
     }
 
@@ -117,13 +124,35 @@ class OperationController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $operationBooks = array_map(function($operationBook){
+            return (object)[
+                'book_id' => $operationBook->book_id,
+                'name' => $operationBook->book->name,
+                'book_status_id' => $operationBook->book_status_id,
+            ];
+        },$model->operationBooks);
+        $operationBooks = json_encode($operationBooks,JSON_UNESCAPED_UNICODE);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $data = array_map(function($operationBook){
+            return [
+                'book_id' => $operationBook->book_id,
+                'name' => $operationBook->book->name,
+                'book_status_id' => $operationBook->book_status_id,
+            ];
+        },$model->operationBooks);
+
+        if ($this->request->isPost){
+            $post = $this->request->post();
+            if ($model->load($post) && $model->save()) {
+                $model->saveBooks($post['Operation']['books']);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'operationBooks' => $operationBooks,
+            'data' => $data,
         ]);
     }
 
@@ -168,6 +197,24 @@ class OperationController extends Controller
                 ->select('id AS id, fio AS text')
                 ->from('client')
                 ->where(['like', 'fio', $q]);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        }
+        return $out;
+    }
+
+    public function actionBook() {
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $q = Yii::$app->request->get('q');
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query = (new Query)
+                ->select('id AS id, name AS text, book_status_id AS status')
+                ->from('book')
+                ->where(['like', 'name', $q]);
             $command = $query->createCommand();
             $data = $command->queryAll();
             $out['results'] = array_values($data);

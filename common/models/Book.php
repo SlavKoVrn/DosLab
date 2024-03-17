@@ -47,8 +47,8 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Ид',
-            'name' => 'Наименование',
-            'article_number' => 'артикул',
+            'name' => 'Название',
+            'article_number' => 'Артикул',
             'date_receipt' => 'Дата поступления',
             'author' => 'Автор',
             'book_status_id' => 'Состояние книги',

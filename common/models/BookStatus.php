@@ -46,4 +46,10 @@ class BookStatus extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(self::find()->orderBy('name')->all(),'id','name');
     }
+
+    public static function getStatusById($id)
+    {
+        $statuses = self::getStatuses();
+        return $statuses[$id];
+    }
 }
