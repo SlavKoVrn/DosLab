@@ -103,7 +103,7 @@ use unclead\multipleinput\MultipleInput;
             var newBook = { 
                 "book_id": selectedData.id, 
                 "name": selectedData.text, 
-                "book_status_id": selectedData.status 
+                "book_status_id": [selectedData.status] 
             };
             if (isBookExists(newBook.book_id)) {
                 alert("Книга уже в списке");
